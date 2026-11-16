@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -429,7 +428,7 @@
            ===================================================== */
         const CONFIG = {
             nome: "Laura",
-            fotos: ["laura.png"],             // fotos que ficam caindo
+            fotos: ["laura.png", "laura2.jpeg"],   // fotos que ficam caindo
             playlist: [
                 { titulo: "31.12", artista: "Jorge & Mateus", arquivo: "31.12.mp3" },
                 { titulo: "Meu Novo Mundo", artista: "Charlie Brown Jr.", arquivo: "novo_mundo.mp3" },
@@ -491,7 +490,9 @@
             el.className = "foto-cai";
             el.style.left = Math.random() * 92 + "vw";
             el.style.backgroundImage = `url('${CONFIG.fotos[Math.floor(Math.random() * CONFIG.fotos.length)]}')`;
-            const d = 7000 + Math.random() * 5000;
+            const tam = 60 + Math.random() * 50;
+            el.style.width = el.style.height = tam + "px";
+            const d = 6000 + Math.random() * 5000;
             el.style.animationDuration = d + "ms";
             soltar(el, d);
         }
@@ -513,7 +514,7 @@
 
         if (!reduzMovimento) {
             setInterval(() => { if (!document.hidden) coracaoCaindo(); }, 450);
-            setInterval(() => { if (!document.hidden) fotoCaindo(); }, 1800);
+            setInterval(() => { if (!document.hidden) fotoCaindo(); }, 350);
         }
 
         /* ---------- Pedido / respostas ---------- */
