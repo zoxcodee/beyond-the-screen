@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#14052b">
+    <meta name="theme-color" content="#e1f7ff">
     <title>Te amo 💞</title>
     <link rel="icon" type="image/png" href="laura.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,45 +12,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --roxo-1: #a855f7;
-            --roxo-2: #7c3aed;
-            --roxo-3: #d8b4fe;
-            --vidro: rgba(30, 10, 60, .42);
-            --borda: rgba(216, 180, 254, .25);
+            /* Paleta sólida: azul-claro, amarelo e rosa. Sem degradês. */
+            --azul-claro: #92dfff;
+            --azul-fundo: #e1f7ff;
+            --amarelo: #ffdb70;
+            --rosa: #ff85b7;
+            --rosa-escuro: #c83471;
+            --texto: #304a58;
+            --vidro: rgba(255, 255, 255, .91);
+            --borda: rgba(255, 133, 183, .54);
         }
 
         * { box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            color: #fff;
-            background: #0b0216;
+            color: var(--texto);
+            background: var(--azul-fundo);
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* ---------- Fundo ---------- */
+        /* ---------- Fundo: cor sólida, sem degradê ---------- */
         #bgVideo {
             position: fixed; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover;
             z-index: -4;
-            opacity: .4;
+            opacity: .10;
+            filter: grayscale(1) brightness(1.5);
         }
 
-        .bg-gradient {
+        .bg-solida {
             position: fixed; inset: 0;
             z-index: -3;
-            background:
-                radial-gradient(ellipse at 20% 10%, rgba(168, 85, 247, .30), transparent 55%),
-                radial-gradient(ellipse at 85% 90%, rgba(236, 72, 153, .22), transparent 55%),
-                linear-gradient(180deg, rgba(11, 2, 22, .55), rgba(11, 2, 22, .8));
+            background: rgba(225, 247, 255, .83);
         }
 
-        #particulas { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+        #particulas {
+            position: fixed; inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
 
         /* ---------- Layout ---------- */
         header {
@@ -59,8 +65,8 @@
             font-size: .95rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--roxo-3);
-            font-weight: 300;
+            color: var(--rosa-escuro);
+            font-weight: 600;
         }
 
         .container {
@@ -77,8 +83,8 @@
             border-radius: 50%;
             object-fit: cover;
             object-position: center 30%;
-            border: 3px solid rgba(255, 255, 255, .85);
-            box-shadow: 0 0 0 6px rgba(168, 85, 247, .35), 0 10px 40px rgba(168, 85, 247, .6);
+            border: 3px solid var(--amarelo);
+            box-shadow: 0 0 0 6px rgba(146, 223, 255, .65), 0 10px 40px rgba(255, 133, 183, .42);
             animation: flutuar 5s ease-in-out infinite;
             margin-bottom: 18px;
         }
@@ -88,6 +94,7 @@
             50% { transform: translateY(-10px); }
         }
 
+        /* O título e o botão compartilham o MESMO brilho de luz */
         h1 {
             font-family: 'Dancing Script', cursive;
             font-size: clamp(3rem, 11vw, 5.4rem);
@@ -97,52 +104,56 @@
             transform-style: preserve-3d;
             transition: transform .12s ease;
             perspective: 900px;
-            background: linear-gradient(90deg, var(--roxo-1) 0%, #fff 35%, var(--roxo-1) 55%, #f0abfc 100%);
-            background-size: 250% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: brilho 4s linear infinite;
-            filter: drop-shadow(0 0 18px rgba(168, 85, 247, .55));
+            color: var(--rosa-escuro);
+            animation: brilhoLuz 3s ease-in-out infinite;
         }
 
-        @keyframes brilho {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 250% 50%; }
+        @keyframes brilhoLuz {
+            0%, 100% {
+                text-shadow: 0 0 6px rgba(255,255,255,.98),
+                             0 0 14px rgba(255,133,183,.7),
+                             0 0 22px rgba(255,133,183,.35);
+                filter: drop-shadow(0 0 4px rgba(255,219,112,.45));
+            }
+            50% {
+                text-shadow: 0 0 9px rgba(255,255,255,1),
+                             0 0 22px rgba(146,223,255,1),
+                             0 0 38px rgba(255,219,112,.85);
+                filter: drop-shadow(0 0 12px rgba(255,219,112,.8));
+            }
         }
 
         /* ---------- Carta ---------- */
         .carta {
             background: var(--vidro);
-            border: 1px solid var(--borda);
+            border: 2px solid var(--borda);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-radius: 26px;
             padding: clamp(22px, 5vw, 44px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+            box-shadow: 0 18px 52px rgba(104, 172, 196, .19);
             width: 100%;
         }
 
         .carta p {
             font-size: clamp(1.02rem, 2.6vw, 1.2rem);
             line-height: 1.75;
-            color: #efe4ff;
-            margin: 0 0 1.4em;
-            font-weight: 300;
+            color: var(--texto);
+            margin: 0;
+            font-weight: 400;
             opacity: 0;
             transform: translateY(18px);
             transition: opacity .9s ease, transform .9s ease;
         }
 
         .carta p.visivel { opacity: 1; transform: none; }
-        .carta p:last-child { margin-bottom: 0; }
-        .carta p.destaque { color: #fff; font-weight: 400; font-style: italic; }
+        .carta p.destaque { color: var(--rosa-escuro); font-weight: 500; font-style: italic; }
 
         .coracao {
             font-size: 3rem;
             margin-top: 34px;
             animation: pulse 1.5s infinite;
-            filter: drop-shadow(0 0 14px rgba(255, 70, 120, .7));
+            filter: drop-shadow(0 0 14px rgba(255, 133, 183, .7));
         }
 
         @keyframes pulse {
@@ -150,29 +161,38 @@
             50% { transform: scale(1.25); }
         }
 
-        /* ---------- Botões ---------- */
+        /* ---------- Botões: cores sólidas ---------- */
         .btn {
             font-family: inherit;
-            border: none;
+            border: 2px solid var(--amarelo);
             cursor: pointer;
-            color: #fff;
+            color: var(--texto);
             font-size: 1.15rem;
             font-weight: 600;
             padding: 16px 38px;
             border-radius: 40px;
-            background: linear-gradient(135deg, var(--roxo-2), #c026d3);
-            box-shadow: 0 8px 30px rgba(168, 85, 247, .55);
+            background: var(--rosa);
+            box-shadow: 0 8px 28px rgba(255, 133, 183, .42);
             transition: transform .25s ease, box-shadow .25s ease;
         }
 
-        .btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 40px rgba(168, 85, 247, .8); }
+        .btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 36px rgba(255, 133, 183, .68); }
         .btn:active { transform: scale(.97); }
-        .btn.principal { margin-top: 26px; animation: pulsoBtn 2.4s infinite; }
-        .btn.nao { background: rgba(255, 255, 255, .12); box-shadow: none; border: 1px solid var(--borda); }
+        .btn.principal {
+            margin-top: 26px;
+            background: var(--rosa);
+            border: 3px solid var(--amarelo);
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.75rem, 5vw, 2.45rem);
+            font-weight: 700;
+            color: var(--rosa-escuro);
+            animation: brilhoLuz 3s ease-in-out infinite, pulsoBtn 2.4s ease-in-out infinite;
+        }
+        .btn.nao { background: var(--azul-claro); box-shadow: none; border: 2px solid var(--amarelo); }
 
         @keyframes pulsoBtn {
-            0%, 100% { box-shadow: 0 8px 30px rgba(168, 85, 247, .55); }
-            50% { box-shadow: 0 8px 50px rgba(236, 72, 153, .85); }
+            0%, 100% { box-shadow: 0 0 12px rgba(255,133,183,.5), 0 0 24px rgba(255,219,112,.35); }
+            50% { box-shadow: 0 0 22px rgba(255,133,183,.85), 0 0 50px rgba(146,223,255,.7); }
         }
 
         /* ---------- Modais ---------- */
@@ -181,7 +201,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            background: rgba(8, 0, 18, .88);
+            background: rgba(225, 247, 255, .94);
             backdrop-filter: blur(6px);
             z-index: 50;
             padding: 20px;
@@ -189,17 +209,16 @@
         }
 
         .overlay.aberto { display: flex; animation: entrar .35s ease; }
-
         @keyframes entrar { from { opacity: 0; } to { opacity: 1; } }
 
         .modal {
-            background: var(--vidro);
-            border: 1px solid var(--borda);
+            background: rgba(255,255,255,.97);
+            border: 2px solid var(--borda);
             border-radius: 28px;
             padding: 38px 28px;
             max-width: 520px;
             width: 100%;
-            box-shadow: 0 0 80px rgba(168, 85, 247, .4);
+            box-shadow: 0 0 75px rgba(255, 133, 183, .28);
             animation: pop .45s cubic-bezier(.2, 1.4, .4, 1);
         }
 
@@ -209,33 +228,30 @@
             font-family: 'Dancing Script', cursive;
             font-size: clamp(2.2rem, 7vw, 3rem);
             margin: 0 0 14px;
-            color: #fff;
+            color: var(--rosa-escuro);
             animation: glow 1.5s infinite alternate;
         }
 
-        .modal p { font-size: 1.15rem; color: var(--roxo-3); line-height: 1.6; margin: 0 0 10px; }
+        .modal p { font-size: 1.15rem; color: var(--texto); line-height: 1.6; margin: 0 0 10px; }
         .modal .acoes { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
         .modal .grande { font-size: 2.2rem; margin-top: 12px; }
 
         @keyframes glow {
-            from { text-shadow: 0 0 10px #ffffff66; }
-            to { text-shadow: 0 0 30px #ffffff99, 0 0 60px #a855f7; }
+            from { text-shadow: 0 0 10px rgba(255,133,183,.4); }
+            to { text-shadow: 0 0 26px rgba(146,223,255,.9), 0 0 46px rgba(255,219,112,.7); }
         }
 
         /* ---------- Partículas ---------- */
         .coracao-cai, .foto-cai, .confete { position: absolute; top: -90px; will-change: transform; }
-
         .coracao-cai { animation: cair linear forwards; }
-
         .foto-cai {
             width: 70px; height: 70px;
             background-size: cover; background-position: center 30%;
             border-radius: 14px;
             opacity: .75;
-            border: 2px solid rgba(255, 255, 255, .5);
+            border: 2px solid var(--amarelo);
             animation: cair linear forwards;
         }
-
         .confete { width: 10px; height: 16px; animation: cair linear forwards; }
 
         @keyframes cair {
@@ -249,59 +265,51 @@
             right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
             width: min(300px, calc(100vw - 32px));
             padding: 14px 16px;
-            background: var(--vidro);
-            border: 1px solid var(--borda);
+            color: var(--texto);
+            background: rgba(255,255,255,.95);
+            border: 2px solid var(--borda);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(124, 58, 237, .55);
+            box-shadow: 0 10px 40px rgba(146, 223, 255, .62);
             z-index: 40;
             font-size: .85rem;
         }
-
         #player .topo { display: flex; align-items: center; gap: 12px; }
-
         #player .disco {
             width: 42px; height: 42px; flex: none;
             border-radius: 50%;
-            background: conic-gradient(var(--roxo-1), #ec4899, var(--roxo-2), var(--roxo-1));
+            background: var(--amarelo);
             display: grid; place-items: center;
             font-size: 1.2rem;
         }
-
         #player.tocando .disco { animation: girar 4s linear infinite; }
         @keyframes girar { to { transform: rotate(360deg); } }
-
         #player .info { min-width: 0; flex: 1; }
         #player .nome { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        #player .artista { color: var(--roxo-3); font-size: .78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
+        #player .artista { color: var(--rosa-escuro); font-size: .78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         #player .controles { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 10px 0 4px; }
-
         #player .controles button {
-            background: rgba(255, 255, 255, .12);
-            border: none; color: #fff;
+            background: var(--azul-claro);
+            border: 0; color: var(--texto);
             width: 38px; height: 38px;
             border-radius: 50%;
             cursor: pointer; font-size: 1rem;
             transition: background .2s, transform .2s;
         }
-
-        #player .controles button:hover { background: rgba(168, 85, 247, .6); transform: scale(1.08); }
-        #player .controles #btnPlay { width: 46px; height: 46px; background: linear-gradient(135deg, var(--roxo-2), #c026d3); }
-
-        #player input[type=range] { width: 100%; accent-color: var(--roxo-2); cursor: pointer; margin: 6px 0 0; }
-        #player .tempo { display: flex; justify-content: space-between; color: var(--roxo-3); font-size: .72rem; }
+        #player .controles button:hover { background: var(--amarelo); transform: scale(1.08); }
+        #player .controles #btnPlay { width: 46px; height: 46px; background: var(--rosa); }
+        #player input[type=range] { width: 100%; accent-color: var(--rosa-escuro); cursor: pointer; margin: 6px 0 0; touch-action: pan-y; }
+        #player .tempo { display: flex; justify-content: space-between; color: var(--rosa-escuro); font-size: .72rem; }
         #player .linha-vol { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
         #player .linha-vol input { margin: 0; }
-        #player .dica { text-align: center; color: var(--roxo-3); font-size: .74rem; margin-top: 8px; }
-
-        #player input[type=range] { touch-action: pan-y; }
+        #player .dica { text-align: center; color: var(--rosa-escuro); font-size: .74rem; margin-top: 8px; }
 
         @media (max-width: 600px) {
             #player input[type=range] { height: 30px; }
             #player { left: 16px; right: 16px; width: auto; }
             .container { padding-bottom: 260px; }
+            .btn.principal { padding: 14px 25px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -316,7 +324,7 @@
     <video id="bgVideo" autoplay muted loop playsinline>
         <source src="video.mp4" type="video/mp4">
     </video>
-    <div class="bg-gradient"></div>
+    <div class="bg-solida"></div>
     <div id="particulas"></div>
 
     <header>🤍 Para uma pessoa muito especial 🤍</header>
@@ -442,7 +450,7 @@
         function coracaoCaindo() {
             const el = document.createElement("div");
             el.className = "coracao-cai";
-            el.textContent = ["💜", "💗", "🤍", "💖"][Math.floor(Math.random() * 4)];
+            el.textContent = ["💜", "💙", "🤍", "💜"][Math.floor(Math.random() * 4)];
             el.style.left = Math.random() * 100 + "vw";
             el.style.fontSize = (1 + Math.random() * 1.2) + "rem";
             const d = 3000 + Math.random() * 3500;
@@ -463,7 +471,7 @@
         }
 
         function confete() {
-            const cores = ["#a855f7", "#ec4899", "#fff", "#f0abfc", "#7c3aed", "#fde68a"];
+            const cores = ["#a78bfa", "#3159a9", "#ffffff", "#c7d2fe", "#7c3aed", "#e9e5ff"];
             for (let i = 0; i < 120; i++) {
                 const el = document.createElement("div");
                 el.className = "confete";
