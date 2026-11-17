@@ -608,6 +608,20 @@
         let faixa = 0;
         let iniciou = false;
         let tentativaAlt = 0;
+        let fila = [];
+        let falhas = 0;
+
+        const enc = (n) => encodeURI(n).replace(/#/g, "%23");
+
+        // gera variações do nome do arquivo (espaço/underline/hífen, maiúscula/minúscula)
+        function candidatos(f) {
+            const base = [f.arquivo, ...(f.alternativas || [])];
+            const extra = [];
+            base.forEach((n) => {
+                extra.push(n.replace(/_/g, " "), n.replace(/_/g, "-"), n.toLowerCase(), n.replace(/\.mp3$/i, ".MP3"));
+            });
+            return [...new Set([...base, ...extra])];
+        }
 
         const fmt = (s) => {
             if (!isFinite(s)) return "0:00";
@@ -619,7 +633,8 @@
             faixa = (i + CONFIG.playlist.length) % CONFIG.playlist.length;
             tentativaAlt = 0;
             const f = CONFIG.playlist[faixa];
-            audio.src = encodeURI(f.arquivo).replace(/#/g, "%23");
+            fila = candidatos(f);
+            audio.src = enc(fila[0]);
             $("nomeMusica").textContent = f.titulo;
             $("artistaMusica").textContent = f.artista;
             if (tocar) tocarAgora();
@@ -635,14 +650,23 @@
         audio.addEventListener("play", () => { player.classList.add("tocando"); $("btnPlay").textContent = "❚❚"; });
         audio.addEventListener("pause", () => { player.classList.remove("tocando"); $("btnPlay").textContent = "▶"; });
         audio.addEventListener("ended", () => carregar(faixa + 1, true));          // próxima automática
+        audio.addEventListener("playing", () => { falhas = 0; });
         audio.addEventListener("error", () => {
             const f = CONFIG.playlist[faixa];
             console.log("Erro ao carregar:", audio.src, "código:", audio.error && audio.error.code);
-            const alts = f.alternativas || [];
-            if (tentativaAlt < alts.length) {
-                audio.src = encodeURI(alts[tentativaAlt++]);
+            tentativaAlt++;
+            if (tentativaAlt < fila.length) {
+                audio.src = enc(fila[tentativaAlt]);
                 tocarAgora();
+                return;
             }
+            // nenhum nome funcionou: avisa e pula pra próxima
+            console.warn("Arquivo não encontrado para:", f.titulo, "→ nomes testados:", fila);
+            falhas++;
+            const dica = $("dicaMusica");
+            dica.style.display = "";
+            dica.textContent = `Não achei o arquivo de "${f.titulo}", pulando... ⏭`;
+            if (falhas < CONFIG.playlist.length) setTimeout(() => carregar(faixa + 1, true), 1200);
         });
         audio.addEventListener("loadedmetadata", () => { $("tTotal").textContent = fmt(audio.duration); });
         audio.addEventListener("timeupdate", () => {
